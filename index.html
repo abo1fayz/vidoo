@@ -1,75 +1,77 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>رفع ملف إلى GitHub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>فيديوهاتي المصممة</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
+      font-family: sans-serif;
+      direction: rtl;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
       text-align: center;
-      background-color: #f7f7f7;
     }
-    input, button {
+
+    header {
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+    }
+
+    #video-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .video-box {
+      background: white;
       padding: 10px;
-      font-size: 16px;
-      margin: 10px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>🚀 رفع ملف إلى GitHub</h1>
-  <input type="file" id="fileInput"><br>
-  <button onclick="uploadFile()">رفع الملف</button>
+  <header>
+    <h1>فيديوهاتي المصممة</h1>
+  </header>
+  <main id="video-container"></main>
 
   <script>
-    async function uploadFile() {
-      const fileInput = document.getElementById('fileInput');
-      const file = fileInput.files[0];
-      if (!file) {
-        alert("الرجاء اختيار ملف أولاً");
-        return;
-      }
+    const videoFiles = [
+      { filename: "video1.mp4", title: "الفيديو الأول" },
+      { filename: "video2.mp4", title: "الفيديو الثاني" },
+      // أضف المزيد حسب الفيديوهات الموجودة في نفس المجلد
+    ];
 
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const contentBase64 = reader.result.split(',')[1];
+    const container = document.getElementById("video-container");
 
-        const fileName = file.name;
-        const repoOwner = 'abo1fayz';
-        const repoName = 'vidoo';
-        const pathInRepo = `${fileName}`; // يمكن تغييره حسب المكان داخل المستودع
+    videoFiles.forEach(video => {
+      const box = document.createElement("div");
+      box.className = "video-box";
 
-        const githubToken = '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';
- // ⚠️ ضع التوكن الحقيقي هنا عند التجربة
+      const title = document.createElement("h3");
+      title.textContent = video.title;
 
-        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${pathInRepo}`;
+      const vid = document.createElement("video");
+      vid.src = video.filename; // بدون مجلد
+      vid.controls = true;
 
-        const response = await fetch(apiUrl, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `token ${githubToken}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: `Upload file ${fileName} via website`,
-            content: contentBase64
-          })
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-          alert("✅ تم رفع الملف بنجاح!");
-          console.log(result);
-        } else {
-          alert("❌ حدث خطأ: " + (result.message || "تعذر رفع الملف"));
-          console.error(result);
-        }
-      };
-
-      reader.readAsDataURL(file);
-    }
+      box.appendChild(title);
+      box.appendChild(vid);
+      container.appendChild(box);
+    });
   </script>
 </body>
 </html>
-
