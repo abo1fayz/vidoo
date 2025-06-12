@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>رفع ملف إلى GitHub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      text-align: center;
+      background-color: #f7f7f7;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 رفع ملف إلى GitHub</h1>
+  <input type="file" id="fileInput"><br>
+  <button onclick="uploadFile()">رفع الملف</button>
+
+  <script>
+    async function uploadFile() {
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("الرجاء اختيار ملف أولاً");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const contentBase64 = reader.result.split(',')[1];
+
+        const fileName = file.name;
+        const repoOwner = 'abo1fayz';
+        const repoName = 'vidoo';
+        const pathInRepo = `uploads/${fileName}`; // يمكن تغييره حسب المكان داخل المستودع
+
+        const githubToken = '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'; // ⚠️ ضع التوكن الحقيقي هنا عند التجربة
+
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${pathInRepo}`;
+
+        const response = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${githubToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `Upload file ${fileName} via website`,
+            content: contentBase64
+          })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert("✅ تم رفع الملف بنجاح!");
+          console.log(result);
+        } else {
+          alert("❌ حدث خطأ: " + (result.message || "تعذر رفع الملف"));
+          console.error(result);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
 
