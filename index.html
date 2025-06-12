@@ -1,59 +1,105 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>فيديوهات يوتيوب</title>
-<style>
-  body {
-    font-family: sans-serif;
-    direction: rtl;
-    background: #f0f0f0;
-    text-align: center;
-    margin: 0; padding: 20px;
-  }
-  .video-box {
-    background: white;
-    margin: 15px auto;
-    padding: 10px;
-    width: 600px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px #ccc;
-  }
-  iframe {
-    width: 100%;
-    height: 340px;
-    border-radius: 8px;
-  }
-  h3 {
-    margin: 10px 0;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>معرض فيديوهاتي - تصميم جديد</title>
+  <style>
+    /* Reset بسيط */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #eee;
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      color: #ff4081;
+      margin: 0;
+    }
+
+    #video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .video-card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(255,64,129,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(255,64,129,0.6);
+    }
+
+    .video-title {
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      background: #272727;
+      color: #ff79a3;
+      user-select: none;
+    }
+
+    iframe {
+      width: 100%;
+      height: 180px;
+      border: none;
+      display: block;
+    }
+
+    /* Responsive ارتفاع أكبر للتابلت والديكستوب */
+    @media (min-width: 768px) {
+      iframe {
+        height: 215px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      iframe {
+        height: 240px;
+      }
+    }
+  </style>
 </head>
 <body>
 
+<header>
+  <h1>معرض فيديوهاتي المصممة</h1>
+</header>
 
-
-  <iframe 
-  width="560" 
-  height="315" 
-  src="https://www.youtube.com/embed/BlyIHrIJoT0" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen>
-</iframe>
-
-<h1>فيديوهاتي على يوتيوب</h1>
-
-<div class="video-box">
-  <h3>الفيديو الأول</h3>
-  <iframe src="https://www.youtube.com/embed/BlyIHrIJoT0" allowfullscreen></iframe>
-</div>
-
-<div class="video-box">
-  <h3>الفيديو الثاني</h3>
-  <iframe src="https://www.youtube.com/embed/xyz12345678" allowfullscreen></iframe>
+<div id="video-grid">
+  <div class="video-card">
+    <iframe src="https://www.youtube.com/embed/BlyIHrIJoT0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+    <div class="video-title">فيديو تصميمي الأول</div>
+  </div>
+  <!-- يمكنك تكرار div.video-card مع تغيير الرابط والعنوان -->
 </div>
 
 </body>
